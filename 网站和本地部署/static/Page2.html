@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗歌格律</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'KaiTi', '楷体', serif;
+            background-color: #f4f1e0;
+        }
+        .header {
+            background-color: #52170B;
+            color: white;
+            padding: 15px 55px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .header span {
+            font-size: 3em;
+            margin-left: 15px;
+            font-family: 'Braggadocio', '华文隶书', serif;
+            font-weight: bold;
+        }
+        .navbar {
+            display: flex;
+            justify-content: left;
+            background-color: #006688;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #f5d45d; /* 金色 */
+            color: #333;
+        }
+        .content {
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+        }
+        .main-content {
+            width: 80%;
+            max-width: 1200px; /* 最大宽度 */
+            background-color: white; /* 白色背景 */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .main-content h1, .main-content h2 {
+            color: #4A2C2A; /* 统一色调 */
+            margin-bottom: 20px;
+            text-align: center; /* 居中 */
+        }
+        .description {
+            font-size: 1.1em;
+            text-align: left; /* 居中 */
+            margin-bottom: 20px;
+            line-height: 1.5; /* 增加行间距 */
+        }
+        .card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="logo.PNG" alt="Logo" style="height: 60px; vertical-align: middle;">
+    <span>风雅颂·ForYourSong·詩歌格律</span>
+</div>
+
+<div class="navbar">
+    <a href="index.html">主頁</a>
+    <a href="Page3.html">詩歌演變史</a>
+    <a href="Page1.html">飛花令</a>
+    <a href="/Page4">AI寫詩</a>
+</div>
+
+<div class="content">
+    <div class="main-content">
+        <h1>诗歌格律</h1>
+        
+        <div class="card">
+            <h2>格律</h2>
+            <p class="description">律诗是中国传统诗歌的一种体裁，属于近体诗范畴，因格律要求非常严格而得名。律诗起源于南朝齐永明时沈约等讲究声律、对仗的新体诗，至初唐沈佺期、宋之问等进一步发展定型，而盛行于唐宋时期。律诗在字句、押韵、平仄、对仗各方面都有严格规定。其常见的类型有五言律诗和七言律诗。</p>
+            <img src="ge_lv.jpg" alt="格律示例" onclick="window.open('https://www.poemshenzhen.com/index.php/Testing/index', '_blank')" style="cursor:pointer;">
+        </div>
+        
+        <div class="card">
+            <h2>韵律</h2>
+            <p class="description">《笠翁对韵》是从前人们学习写作近体诗、词，用来熟悉对仗、用韵、组织词语的启蒙读物。作者李渔，号笠翁，因此叫《笠翁对韵》。全书分为卷一和卷二。按韵分编，包罗天文、地理、花木、鸟兽、人物、器物等的虚实应对。从单字对到双字对，三字对、五字对、七字对到十一字对，声韵协调，琅琅上口，从中得到语音、词汇、修辞的训练。从单字到多字的层层属对，读起来，如唱歌般。较之其他全用三言、四言句式更见韵味。</p>
+            <img src="liweng.jpeg" alt="韵律示例" onclick="window.open('https://www.gushiwen.cn/guwen/book_285366189b25.aspx', '_blank')" style="cursor:pointer;">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

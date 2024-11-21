@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗句生成器</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'KaiTi', '楷体', serif;
+            background-color: #f6f4cd;
+            color: #333;
+            overflow: auto;
+        }
+        .header {
+            background-color: #52170B;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.5em;
+        }
+        .navbar {
+            display: flex;
+            justify-content: left;
+            background-color: #006688;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .main-content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+        .radio-group {
+            display: inline-block;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .radio-group label {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 1.3em;
+            cursor: pointer;
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+            transform: scale(1.2);
+        }
+        #word {
+            width: 200px;
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            background-color: #fafafa;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        #word:focus {
+            border-color: #006688;
+            background-color: #fff;
+        }
+        #generate {
+            background: linear-gradient(145deg, #a8e6cf, #d0f1e2);
+            border: none;
+            color: #333;
+            font-size: 1.2em;
+            font-family: 'KaiTi', '楷体', serif;
+            padding: 12px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+        }
+        #generate:hover {
+            background: linear-gradient(145deg,#d0f1e2, #a8e6cf);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+        #generate:active {
+            transform: translateY(2px);
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #52170B;
+        }
+
+        /* Flexbox布局 */
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <img src="../static/logo.PNG" alt="Logo" style="height: 40px; vertical-align: middle;">
+    <span>風雅頌·ForYourSong·AI写诗</span>
+</div>
+
+<div class="navbar">
+    <a href="/static/index.html">主頁</a>
+    <a href="/static/page3.html">詩歌演變史</a>
+    <a href="/static/page2.html">格律知識</a>
+    <a href="{{ url_for('home') }}">AI寫詩</a>
+</div>
+
+<div class="main-content">
+    <h1>诗句生成器</h1>
+    <label>选择诗歌类型：</label>
+    <div class="radio-group">
+        <label>
+            <input type="radio" name="model" value="tangshi" checked>
+            <span>唐诗</span>
+        </label>
+        <label>
+            <input type="radio" name="model" value="songci">
+            <span>宋词</span>
+        </label>
+        <label>
+            <input type="radio" name="model" value="yuanqu">
+            <span>元曲</span>
+        </label>
+    </div>
+    <br><br>
+    <label for="word">输入一个字，若出错，请尝试切换简繁体</label>
+    <!-- 输入框和按钮使用flex布局 -->
+    <div class="input-container">
+        <input type="text" id="word" placeholder="请输入一个字">
+        <button id="generate">生成诗句</button>
+    </div>
+    <div id="result"></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#generate').click(function() {
+            const word = $('#word').val();
+            const model = $('input[name="model"]:checked').val(); // 获取选中的单选按钮的值
+
+            if (!word) {
+                alert('请输入一个字！');
+                return;
+            }
+
+            $.ajax({
+                url: 'http://127.0.0.1:5000/generate',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ word: word, model: model }),
+                success: function(response) {
+                    showTextEffect(response.poem);
+                },
+                error: function() {
+                    $('#result').text('生成诗句时出错。');
+                }
+            });
+        });
+    });
+
+    function showTextEffect(text) {
+        const resultDiv = $('#result');
+        resultDiv.text('');
+
+        // 定义标点符号
+        const punctuationMarks = ['。', '，', '；', '：', '！', '？', '、'];
+
+        let index = 0;
+        let processedText = '';
+
+        // 遍历文本，按标点符号插入换行
+        while (index < text.length) {
+            let char = text[index];
+            processedText += char;
+            // 如果字符是标点符号，添加换行
+            if (punctuationMarks.includes(char)) {
+                processedText += '<br>';
+            }
+            index++;
+        }
+
+        // 动态添加文本效果
+        let currentIndex = 0;
+        const interval = setInterval(function() {
+            if (currentIndex < processedText.length) {
+                resultDiv.html(processedText.substring(0, currentIndex + 1));
+                currentIndex++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 100);
+    }
+</script>
+
+</body>
+</html>
+
