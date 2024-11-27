@@ -13,6 +13,8 @@
 
 5.sample.py用于测试模型效果，可以在其中切换模型，以及输入你想写诗的字。
 
+6.模型来源：https://github.com/justdark/pytorch-poetry-gen
+
 # 网站和本地部署（模型已准备好）
 1.static中包含4个静态网页。templates包含用于ai写诗的动态网页。  
 
